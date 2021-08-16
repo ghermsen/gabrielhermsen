@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Gabriel Hermsen Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+							<div class="content" w3-include-html="components/header.html">
+							</div>
+
+							<!-- Banner -->
+							<section id="banner" w3-include-html="components/banner.html">	
+							</section>
+								
+							<!-- Knowledge -->
+							<section w3-include-html="components/knowledge.html">
+							</section>
+
+							<!-- Projects -->
+							<section w3-include-html="components/last_projects.html">
+							</section>
+							
+							<!-- Articles 
+							<section w3-include-html="components/last_articles.html">
+							</section>-->
+
+							<!-- Contact Footer -->
+							<section w3-include-html="components/footer.html">
+							</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+				<div id="sidebar">
+					<div class="inner">
+
+						<!-- Menu -->
+						<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="cv.html">CV</a></li>
+								<li><a href="elements.html">Elements</a></li>
+								<li>
+									<span class="opener">Projects</span>
+										<ul w3-include-html="components/menu_projects.html"></ul>
+									</span>
+								</li>
+								<!--<li>
+									<span class="opener">Articles</span>
+										<ul w3-include-html="components/menu_posts.html"></ul>
+									</span>
+								</li>-->
+							</ul>
+						</nav>
+
+
+						<!-- Section -->
+						<section>
+							<header class="major">
+								<h2>Last Article</h2>
+							</header>
+							<div class="mini-posts" w3-include-html="components/last_articles_sidebar.html"></div>
+						</section>
+						
+					</div>
+				</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="assets/js/w3.js"></script>
+			<script>w3.includeHTML();</script>
+
+	</body>
+</html>

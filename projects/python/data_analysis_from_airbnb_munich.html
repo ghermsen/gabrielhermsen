@@ -1,0 +1,480 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Gabriel Hermsen Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+							<div class="content" w3-include-html="/components/header.html">
+							</div>
+
+							<section>
+
+								<span><a href="https://www.linkedin.com/in/gabrielhermsen/" target="_blank"><img src="https://img.shields.io/badge/author-ghermsen-red.svg"/></a></span>
+								<span ><a href="https://docs.python.org/3.9/" target="_blank"><img src="https://img.shields.io/badge/python-3.9-blue.svg"></a></span>
+								<span ><a href="http://perso.crans.org/besson/LICENSE.html" target="_blank"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg"></a></span>
+								<span ><a href="https://github.com/ghermsen/airbnb_munchen/issues" ><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a></span>
+
+								<header class="main">
+									<h1>Data Analysis from Airbnb - Munich</h1>
+								</header>
+
+								<p>The IPO (Initial Public Offering, that is, the process in which a private company goes public by selling its shares to
+								the general public) of <a href="www.airbnb.com">Airbnb</a> took place on December 9, 2020, and its shares started trading on 
+								December 10, 2020. On that day, the company's shares were worth USD144.71, an incredible 112.00% more than the USD68.00 
+								value set by the company in its IPO, making the company reach the mark of USD100 Billion in market value, surpassing giants 
+								from hotel industries like Marriott International, Hilton, and Hyatt.</p>
+								<p>The Startup, founded in 2008, offers an attractive and easy-to-use platform for its users, connecting travelers or people 
+								who want to stay in a property and hosts (people who prefer to rent their property for a short time). Airbnb is present in more 
+								than 80,000 cities worldwide and has hosted more than 300 million people, and it is considered by many to be the largest hotel 
+								company today, and the main detail is: Airbnb does not have any hotels!</p>
+								<p>One of Airbnb's initiatives is to provide website data for some of the world's major cities. Through the 
+								<a href="http://insideairbnb.com/get-the-data.html">Inside Airbnb</a>, it is possible to download a large amount
+								of data to develop Data Science projects and solutions.</p>
+								<p><strong>In this project, we will analyze the data for the city of Munich and see which insights can be extracted from raw data.</strong></p>
+								<span class="image main" style="text-align: center"><img src="/images/projects/python/data_analysis_from_airbnb_munich/cover.jpg" alt="https://www.sueddeutsche.de/muenchen/airbnb-kommentar-1.4251629" /><em>Image Source: <a href="https://www.sueddeutsche.de/muenchen/airbnb-kommentar-1.4251629">Süddeutsche Zeitung</a></em></span>
+
+								<hr class="major" />
+
+								<h2>Imports</h2>
+								<p>Below there are all the libraries used in this project:</p>
+								<ul>
+									<li><code>Functools</code></li>
+									<li><code>GeoPandas</code></li>
+									<li><code>GeoPy</code></li>
+									<li><code>Matplotlib</code></li>
+									<li><code>Pandas</code></li>
+									<li><code>Seaborn</code></li>
+								</ul>
+
+								<hr class="major" />
+
+								<h2>Obtaining the Data</h2>
+								<p>All data used in this project was obtained from the website <a href="http://insideairbnb.com/get-the-data.html">Inside Airbnb</a>.</p>
+								<p>For this data analysis, the following files will be downloaded:</p>
+								<ul>
+									<li>Exploratory Data Analysis</li>									
+									<ul>
+										<li>City - Munich, Bavaria, Germany</li>
+										<li>Data Compiled - 24 December, 2020</li>
+										<li>File - <code>listings.csv</code> - <strong>Summary information and metrics for listings in Munich (good for visualisations)</strong>.</li>
+									</ul>
+									<li>Map Visualization</li>
+									<ul>
+										<li>City - Munich, Bavaria, Germany</li>
+										<li>Data Compiled - N/A</li>
+										<li>File - <code>neighbourhoods.geojson</code> - <strong>GeoJSON file of neighbourhoods of the city</strong>.</li>
+									</ul>
+								</ul>
+
+								<hr class="major" />
+
+								<h2>Understanding the Dataset</h2>
+								<p>Understanding the data is a fundamental step in any data science project. It will show us the variables available in our dataset 
+								and how these variables are structured. This step helps us understand the type of problem and how we will solve it.</p>
+
+								<h3>Variables' Dictionary</h3>
+								<ul>
+									<li><code>id</code> - property id number</li>
+									<li><code>name</code> - property name announced</li>
+									<li><code>id</code> - host id number</li>
+									<li><code>host_id</code> - host name</li>
+									<li><code>neighbourhood_group</code> - there are no values and will be deleted</li>
+									<li><code>neighbourhood</code> - neighbourhood name</li>
+									<li><code>latitude</code> - property latitude</li>
+									<li><code>longitude</code> - property type announced</li>
+									<li><code>room_type</code> - property id number</li>
+									<li><code>price</code> - daily rate</li>
+									<li><code>minimum_nights</code> - minimum number of nights to book</li>
+									<li><code>number_of_reviews</code> - total number of reviews for the property</li>
+									<li><code>last_review</code> - date of the last review</li>
+									<li><code>reviews_per_month</code> - number of reviews per month</li>
+									<li><code>calculated_host_listings_count</code> - number of properties from the same host</li>
+									<li><code>availability_365</code> - number of days available in the calendar year</li>
+									<ul>
+										<li><em>In Munich there is a rule where entire properties can be rented for only 8 weeks during the calendar year, however, this 
+											restriction is not valid for rooms.</em></li>
+									</ul>
+								</ul>
+
+								<h3>Dataset Size and Types of Variables</h3>
+								<p>Below, it is possible to see the size of our dataset and the type of its variables.</p>
+								<pre><code>
+# Dataset Size
+
+	Number of Entries:	 4815
+	Number of Features:	 16
+
+# Type of Variables
+
+	id                                  int64
+	name                               object
+	host_id                             int64
+	host_name                          object
+	neighbourhood_group               float64
+	neighbourhood                      object
+	latitude                          float64
+	longitude                         float64
+	room_type                          object
+	price                               int64
+	minimum_nights                      int64
+	number_of_reviews                   int64
+	last_review                        object
+	reviews_per_month                 float64
+	calculated_host_listings_count      int64
+	availability_365                    int64
+	dtype: object
+								</code></pre>
+
+								<h3>Cleaning the Dataset</h3>
+								<p>Looking at the Variables Dictionary and also the types of variables present in the dataset, it is possible to see the presence of 
+								variables that will not be used in our analysis, such as:</p>
+								<ul>
+									<li><code>id</code></li>
+									<li><code>host_id</code></li>
+									<li><code>host_name</code></li>
+									<li><code>neighbourhood_group</code></li>
+									<li><code>number_of_reviews</code></li>
+									<li><code>last_review</code></li>
+									<li><code>reviews_per_month</code></li>
+									<li><code>calculated_host_listings_count</code></li>
+								</ul>
+								<p>For a cleaner and more objective analysis, these variables will be deleted.</p>
+								<p>Below, there is a sample of our dataset after cleaning.</p>
+								<img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/data_sample.png" style="display:block; margin-left: auto; margin-right: auto;">
+
+								<h3>Missing Values</h3>
+								<p>The quality of a dataset is directly related to the number of missing values. It is important to understand early on whether these 
+								null values are significant concerning the total number of entries to avoid future problems in our analysis.</p>
+								<ul>
+									<li>The variable <code>name</code> has approximately 0.02% of the null values, which is considered as a non-significant amount in 
+									the case that these variables are to be used for analysis.</li>
+								</ul>
+								<p>As the variables that will not be used previously have been cleaned up, this dataset has practically no null values, therefore no 
+								null values treatment will be performed.</p>
+								<pre><code>
+# Checking Missing Values
+
+	name                0.000208
+	neighbourhood       0.000000
+	latitude            0.000000
+	longitude           0.000000
+	room_type           0.000000
+	price               0.000000
+	minimum_nights      0.000000
+	availability_365    0.000000
+	dtype: float64
+								</code></pre>
+
+								<h3>Outliers Detection and Treatment</h3>
+								<p>Outliers are data that are very far from your dataset, that is, data out of "normal". They are problematic due to distortions in 
+								the actual values of the dataset caused by them, resulting in the loss of information.</p>
+								<p>For this, a histogram will be plotted to check for the presence of outliers.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/histogram.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+								<p>Through the histogram, it is possible to verify the presence of outliers in the variables <code>price</code> and <code>minimum_nights</code>.</p>
+								<p>The values do not follow a distribution and distort the entire graphical representation. To confirm it, there are two quick ways 
+								to help detect outliers:</p>
+								<ul>
+									<li>Summary statistics using the <code>describe()</code> method;</li>
+									<li>Plot boxplots for the variables.</li>
+								</ul>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/summary_statistics.png"><br></span>
+								<p>Looking at the statistical summary above, it is possible to obtain valuable information for the analysis and about the presence of 
+								outliers.</p>
+								<ul>
+									<li>The variable <code>prices</code> has 75% of its values below 120, but its maximum value is 8255, which is well above the values 
+									obtained up to 75% of the dataset, which proves the presence of outliers.</li>
+									<li>The variable <code>prices</code> presents minimum values equal to 0. Understanding the Airbnb business, it is known that no one 
+									rents any property on Airbnb for free.</li>
+									<li>The variable <code>minimum_nights</code> has 75% of its values below 3, but its maximum value is 800, which is well above the 
+									values obtained up to 75% of the dataset, which proves the presence of outliers.</li>
+								</ul>
+
+								<h4>Boxplot for "price"</h4>
+								<p>Below, the boxplot for the variable <code>price</code> visually shows the information contained in the summary statistics.</p>
+								<p>As a parameter, all data greater than 1000 will be considered an outlier in this analysis. Below, you will see the quantity and ratio
+								of these outliers and the values where <code>price</code> is equal to 0.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/box_plot_prices.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+
+								<h4>Boxplot for "minimum_nights"</h4>
+								<p>Below, the boxplot for the variable <code>minimum_nights</code> visually shows the information contained in the summary statistics.</p>
+								<p>As a parameter, all data greater than 30 will be considered an outlier in this analysis. Below, you will see the quantity and ratio of
+								these outliers.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/boxplot_minimum_nights.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+
+								<h4>Removing Outliers and Creating Data Frame for Analysis</h4>
+								<p>Now with the outliers identified and treated, we shall plot new boxplots analyze them.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/boxplot_price_and_minimum_nights.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+								<p>Finally, with the clean data frame created and treated, the analysis begins.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/summary_statistics_2.png" style="display:block; margin-left: auto; margin-right: auto;"></span>
+								<hr class="major" />
+								
+								<h2>Data Analysis</h2>
+								<p>This project aims to answer the following questions:</p>
+								<ol><strong>Questions</strong>
+									<li>What is the proportion of the property types in Munich on Airbnb? And what is the proportion by neighbourhood?</li>
+									<li>What is the average property price in the different neighbourhoods of Munich?</li>
+									<li>How are property prices distributed in the 2 most expensive neighbourhoods?</li>
+									<li>How are property prices distributed in the 2 cheapest neighbourhoods?</li>
+									<li>Can tourist attractions represent high prices when choosing properties in Munich on Airbnb?</li>
+								</ol>
+
+								<h3>Q1 - What is the proportion of the property types in Munich on Airbnb? And what is the proportion by neighbourhood?</h3>
+								<p>It can be seen that the proportion of property types <em>'Entire home/apt'</em> and <em>'Private room'</em> in Munich is close, with 
+								<strong>52.95%</strong> and <strong>44.09%</strong> respectively.</p>
+								<pre><code>
+# Number of Property Types
+
+	Entire home/apt    2462
+	Private room       2050
+	Shared room          80
+	Hotel room           58
+	Name: room_type, dtype: int64
+
+
+# Ratio of Property Types
+
+	Entire home/apt    52.95%
+	Private room       44.09%
+	Shared room         1.72%
+	Hotel room          1.25%
+	Name: room_type, dtype: object
+								</code></pre>
+								<p>As the property types <em>'Shared room'</em> and <em>'Hotel room'</em> are not relevant to the number of properties being rented on
+								Airbnb in the city of Munich, I will continue this analysis in the neighbourhoods using only the property types <em>'Entire home/apt'</em>
+								and <em>'Private room'</em>.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/df_question1_1.png" style="display:block; margin-left: auto; margin-right: auto;"></span>
+								<p>It can be seen that the distribution of property types in Munich is well balanced in most neighbourhoods.</p>
+								<p>Below you can see the neighbourhoods where the proportion of property type <em>'Entire home/apt'</em> is higher, so if the Airbnb user
+								wants to stay in one of the neighbourhoods listed below, there is a greater chance that this user will find offers of this type property
+								available.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/df_question1_2.png" style="display:block; margin-left: auto; margin-right: auto;"></span>
+								<p>Now, you can see the neighbourhoods where the proportion of property type <em>'Private room'</em> is higher, so if the Airbnb user wants
+								to stay in one of the neighbourhoods listed below, there is a greater chance that this user will find offers for this type of property available.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/df_question1_3.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+
+								<h3>Q2 - What is the average property price in the different neighbourhoods of Munich?</h3>
+								<p>It has already been seen in the summary statistics that the average property price in Munich is <strong>€ 105.23</strong>. Below is the
+								average property price per neighbourhood in Munich. We can see that there is a big price difference, where the average price in the
+								<strong>most expensive neighbourhood is € 149.36 and in the cheapest neighbourhood is 74.94</strong>.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/df_question2_1.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+								<p>To continue this analysis, I will extract the 2 most expensive and cheapest neighbourhoods in Munich concerning the average price of all
+								properties.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/df_question2_2.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+
+								<h3>Q3 - How are property prices distributed in the 2 most expensive neighbourhoods?</h3>
+								<p>When analyzing the price per property type in the two most expensive neighbourhoods of Munich concerning the average price, we shall
+								observe that:</p>
+								<h4>Ludwigsvorstadt-Isarvorstadt</h4>
+								<strong>1. <em>'Entire room/apt'</em></strong>
+								<ul>
+									<li>The average price is far from the median (159.98 x 110.00 respectively), which indicates the presence of outliers.</li>
+									<li>It is possible to rent a property of this type in this neighbourhood for <strong>€30.00</strong>.</li>
+								</ul>
+								<strong>2. <em>'Private room'</em></strong>
+								<ul>
+									<li>The average price is far from the median (131.86 x 76.50 respectively), which indicates the presence of outliers.</li>
+									<li>It is possible to rent a property of this type in this neighbourhood for <strong>€25.00</strong>.</li>
+								</ul>
+								<h4>Altstadt-Lehel</h4>
+								<strong>1. <em>'Entire room/apt'</em></strong>
+								<ul>
+									<li>The average price is far from the median (173.19 x 145.00 respectively), which indicates the presence of outliers.</li>
+									<li>It is possible to rent a property of this type in this neighbourhood for <strong>€10.00</strong>.</li>
+								</ul>
+								<strong>2. <em>'Private room'</em></strong>
+								<ul>
+									<li>The average price is far from the median (104.91 x 80.00 respectively), which indicates the presence of outliers.</li>
+									<li>It is possible to rent a property of this type in this neighbourhood for <strong>€35.00</strong>.</li>
+								</ul>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/df_question3.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+								<p>In order to have a better view of prices and confirmation of the presence of outliers, we will plot the boxplot again for properties
+								in these neighbourhoods.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/boxplot_question3.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+								<p>Through the boxplot chart, the presence of outliers in the price of different property types in these neighbourhoods is clear. For this
+								reason, it is better to consider the median price, as the median is not as sensitive to outlier values as the average.</p>
+								<p>With that, we can conclude that:</p>
+								<ul>
+									<li>The price of both property types is <strong>higher in Altstadt-Lehel</strong> than in Ludwigsvorstadt-Isarvorstadt when we start to
+									consider the median as the base price.</li>
+									<li>Although Altstadt-Lehel is the most expensive location based on the median price for the <em>'Entire home/apt'</em> property type,
+									it is possible to find this type of property for the lowest minimum price, <strong>€10.00</strong>.</li>
+									<li>It is possible to find <em>'Private room'</em> properties at minimum price lower <strong>Ludwigsvorstadt-Isarvorstadt</strong> than
+									in Altstadt-Lehel.</li>
+								</ul>
+
+								<h3>Q4 - How are property prices distributed in the 2 cheapest neighbourhoods?</h3>
+								<p>When analyzing the price per property type in the two most expensive neighbourhoods of Munich concerning the average price, we shall observe that:</p>
+								<h4>Moosach</h4>
+								<strong>1. <em>'Entire room/apt'</em></strong>
+								<ul>
+									<li>The average price is far from the median (88.69 x 62.50 respectively), which indicates the presence of outliers.</li>
+									<li>It is possible to rent a property of this type in this neighbourhood for <strong>€33.00</strong>.</li>
+								</ul>
+								<strong>2. <em>'Private room'</em></strong>
+								<ul>
+									<li>The average price is far from the median (60.19 x 59.50 respectively), which indicates the presence of outliers.</li>
+									<li>It is possible to rent a property of this type in this neighbourhood for <strong>€20.00</strong>.</li>
+								</ul>
+								<h4>Milbertshofen-Am Hart</h4>
+								<strong>1. <em>'Entire room/apt'</em></strong>
+								<ul>
+									<li>The average price is far from the median (93.89 x 69.00 respectively), which indicates the presence of outliers.</li>
+									<li>It is possible to rent a property of this type in this neighbourhood for <strong>€16.00</strong>.</li>
+								</ul>
+								<strong>2. <em>'Private room'</em></strong>
+								<ul>
+									<li>The average price is far from the median (61.19 x 50.00 respectively), which indicates the presence of outliers.</li>
+									<li>It is possible to rent a property of this type in this neighbourhood for <strong>€23.00</strong>.</li>
+								</ul>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/df_question4.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+								<p>In order to have a better view of prices and confirmation of the presence of outliers, we will plot the boxplot again for properties in
+								these neighbourhoods.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/boxplot_question4.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+								<p>Through the boxplot chart, the presence of outliers in the price of different property types in these neighbourhoods is clear. For this
+								reason, it is better to consider the median price, as the median is not as sensitive to outlier values as the average.</p>
+								<p>With that, we can conclude that:</p>
+								<ul>
+									<li>The price for <em>'Entire home/apt'</em> is <strong>lower in Moosach</strong> than in Milbertshofen-Am Hart.</li>
+									<li>Although Moosach is the cheapest location based on the median price for the <em>'Entire home/apt'</em> property type, it is possible 
+									to find this type of property for the lowest minimum price of <strong>€16.00 in Milbertshofen-Am Hart</strong>.</li>
+									<li>The price of property type <em>'Private room'</em> is <strong>lower in Milbertshofen-Am Hart</strong> than in Moosach.</li>
+									<li>It is possible to find <em>'Private room'</em> properties at a minimum price lower <strong>in Moosach</strong> than in Milbertshofen-Am Hart.</li>
+								</ul>
+
+								<h3>Q5 - Can tourist spots represent high prices when choosing properties in Munich on Airbnb?</h3>
+								<p>We know that in most urban centers, the central regions usually have the largest number of sights, places for nightlife, restaurants, offices,
+								and more. Consequently, this increases the demand for people looking for apartments and rooms in these areas, making prices in these areas 
+								commonly higher than in other regions.</p>
+								<p>A final analysis will be conducted to identify tourist spots in Munich, and then confirm whether the location of these tourist spots is 
+								closer to the most expensive or cheapest neighbourhoods in the city.</p>
+								<p>For this, the <a href="http://insideairbnb.com/get-the-data.html">Inside Airbnb</a> website has another dataset on which we can make this 
+								analysis.</p>
+								<p>This data frame has already been generated in the <em>'Obtaining the Data'</em> part of this notebook.</p>
+								<pre><code>
+# expensive and cheap neighbourhoods
+
+array(['Altstadt-Lehel', 'Ludwigsvorstadt-Isarvorstadt', 'None',
+		'Moosach', 'Milbertshofen-Am Hart'], dtype=object)									
+								</code></pre>
+								<p>With the <code>Nominatim</code>, we can create a locator using the name of these tourist spots and get their latitudes and longitudes. 
+								These tourist spots were selected on the <a href="https://www.muenchen.de/sehenswuerdigkeiten/top-20-sehenswuerdigkeiten.html">official website of Munich</a>.</p>
+								<p>After generating a dictionary of tourist spots in Munich, we can start plotting our map of Munich, with the chosen neighbourhoods and 
+								tourist spots.</p>
+								<pre><code>
+# Dictionary of Tourist Spots
+
+	{'Frauenkirche München': (11.573592008043118, 48.1385821),
+	'Schloss Nymphenburg': (11.5032967, 48.1582569),
+	'Marienplatz': (11.575924590567384, 48.137031750000006),
+	'Alter Peter': (11.576030455223243, 48.13644495),
+	'Allianz Arena': (11.624664151799873, 48.21880845),
+	'Karlsplatz (Stachus)': (11.565622, 48.1394857),
+	'Odeonsplatz': (11.5763171, 48.1427658),
+	'Residenz': (11.57904463904056, 48.1411608),
+	'Deutsches Museum': (11.582908990594504, 48.1300409),
+	'Olympiapark': (11.55032660696114, 48.16875265),
+	'BMW Welt': (11.556375779693298, 48.1772189),
+	'Alte Pinakothek': (11.569970907138872, 48.1482861),
+	'Neue Pinakothek': (11.570937445883057, 48.1499278),
+	'Pinakothek der Moderne': (11.572227101401982, 48.14716025),
+	'Tierpark Hellabrunn': (11.554196865190177, 48.096281149999996),
+	'Bayerische Staatsoper': (11.579513288504806, 48.1396162),
+	'Hofbräuhaus': (11.57998140312025, 48.13757095),
+	'Alter Hof': (11.5780147, 48.1382036),
+	'Viktualienmarkt': (11.576255684942478, 48.135575200000005)}
+								</code></pre>
+								<p>On the map, we can confirm that most of the tourist spots in Munich are located in the most expensive neighbourhoods of the city.</p>
+								<span class="image object"><img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/map_question5.png" style="display:block; margin-left: auto; margin-right: auto;"><br></span>
+
+								<hr class="major" />
+
+								<h2>Conclusion</h2>
+								<p>Even working with a non-complete dataset, it was possible to see many outliers in the price variable, which was the fundamental variable 
+								used for this analysis. Treatment of outliers was carried out at the beginning of the project, using the entire city as a parameter. However, 
+								when the analysis of the most expensive and cheapest neighbourhoods concerning the average price began, it was possible to observe the 
+								existence of outliers in neighbourhood prices, which means that the analysis with the average price can be a non-viable alternative for a 
+								better representation of reality.</p>
+								<p>The analysis of the Airbnb in Munich showed us that the property types <em>'Entire room/apt'</em> and <em>'Private room'</em> are well 
+								balanced, probably it is a result of the policies applied regarding the restriction of the period of days for renting entire properties in 
+								the city.</p>
+								<p>For future iterations in this project, I will use the complete dataset available on <a href="http://insideairbnb.com/get-the-data.html">Inside Airbnb</a> 
+								website. This dataset offers a possibility of analyzing important variables that can explain the price, such as square meter, amenities among 
+								others.</p>
+								<p>Questions, suggestions for improvements, and corrections are welcome, and thank you for analyzing the data with me so far!</p>
+
+							</section>
+
+							<!-- Contact Footer -->
+							<section w3-include-html="/components/footer.html">
+							</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+				<div id="sidebar">
+					<div class="inner">
+
+						<!-- Menu -->
+						<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+							<ul>
+								<li><a href="/index.html">Home</a></li>
+								<li><a href="/cv.html">CV</a></li>
+								<li><a href="/elements.html">Elements</a></li>
+								<li>
+									<span class="opener">Projects</span>
+										<ul w3-include-html="/components/menu_projects.html"></ul>
+									</span>
+								</li>
+								<!--<li>
+									<span class="opener">Articles</span>
+										<ul w3-include-html="components/menu_posts.html"></ul>
+									</span>
+								</li>-->
+							</ul>
+						</nav>
+
+
+						<!-- Section -->
+						<section>
+							<header class="major">
+								<h2>Last Article</h2>
+							</header>
+							<div class="mini-posts" w3-include-html="/components/last_articles_sidebar.html"></div>
+						</section>
+						
+					</div>
+				</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+			<script src="/assets/js/w3.js"></script>
+			<script>w3.includeHTML();</script>
+
+	</body>
+</html>

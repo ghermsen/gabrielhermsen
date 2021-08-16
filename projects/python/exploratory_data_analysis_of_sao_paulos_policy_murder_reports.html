@@ -1,0 +1,535 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Gabriel Hermsen Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+							<div class="content" w3-include-html="/components/header.html">
+							</div>
+
+							<section>
+
+								<span><a href="https://www.linkedin.com/in/gabrielhermsen/" target="_blank"><img src="https://img.shields.io/badge/author-ghermsen-red.svg"/></a></span>
+								<span ><a href="https://docs.python.org/3.9/" target="_blank"><img src="https://img.shields.io/badge/python-3.9-blue.svg"></a></span>
+								<span ><a href="http://perso.crans.org/besson/LICENSE.html" target="_blank"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg"></a></span>
+								<span ><a href="https://github.com/ghermsen/airbnb_munchen/issues" target="_blank"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a></span>
+
+								<header class="main">
+									<h1>Exploratory Data Analysis of São Paulo's Policy Murder Reports</h1>
+								</header>
+
+								<p>According to the <a href="https://www.who.int/data/gho/data/indicators/indicator-details/GHO/estimates-of-rates-of-homicides-per-100-000-population" target="_blank">WHO, World Health Organization</a> 
+								(date of view 03.18.2021), Brazil has a homicide rate of 32.59 per 100 thousand inhabitants, a rate five times higher than the 
+								global average (6 for every 100 thousand inhabitants), putting the country on the 9th position in this sad statistic.</p>
+								<p>Brazil is a vast country, with more than 200 million inhabitants and divided by 27 federative units, with extreme inequality. 
+								An excellent example of these inequalities is the homicide rate of these states that the <a href="https://www.ipea.gov.br/atlasviolencia/arquivos/artigos/3519-atlasdaviolencia2020completo.pdf" target="_blank">Atlas of Violence (p.18)</a> reported.
+								This report shows us that in 2018, Roraima state had the highest homicide rate in the country, 71.8 homicides per 100 thousand 
+								inhabitants. In contrast, São Paulo state had the lowest homicide rate in the country, with only 8.2 homicides per 100 thousand 
+								inhabitants.</p>
+								<p>In this work, an Exploratory Analysis of the police reports referring to homicides in the state of São Paulo will be carried 
+								out between the years 2018 and 2020.</p>
+								<span class="image main" style="text-align: center"><img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/marilia-castelli-sbXNOlW1Tgk-unsplash.jpg"/><em>Photo by: <a href="https://unsplash.com/@liacastelli?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Marília Castelli</a> on <a href="https://unsplash.com/s/photos/sao-paulo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank">Unsplash</a></em></span>
+
+								<hr class="major" />
+
+								<h2>Imports</h2>
+								<p>Below there are all the libraries used in this project:</p>
+								<ul>
+									<li><code>NumPy</code></li>
+									<li><code>Matplotlib</code></li>
+									<li><code>Pandas</code></li>
+									<li><code>PyWaffle</code></li>
+								</ul>
+
+								<hr class="major" />
+
+								<h2>Obtaining the Data</h2>
+								<p>All data used in this project is on the website of the <a href="http://www.ssp.sp.gov.br/transparenciassp/" target="_blank">Secretary of Public Security of the State of São Paulo</a>.</p>
+								<p>For this Exploratory Data Analysis, the following files were downloaded and merged in one single file:</p>
+								<ul>
+									<li>Downloaded Files</li>									
+									<ul>
+										<li>Category - Homícidio doloso <strong>(murder, willful homicide)</strong></li>
+										<li>Period - Every month between Jan 2018 and Dec 2020</li>
+									</ul>
+									<li>Repository File</li>
+									<ul>
+										<li>Path - <a href="https://github.com/ghermsen/sao_paulo_murder_eda/tree/main/db" target="_blank">https://github.com/ghermsen/sao_paulo_murder_eda/tree/main/db</a></li>
+										<li>File - <a href="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/db/dadosbo.csv" target="_blank">https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/db/dadosbo.csv</a></li>
+									</ul>
+								</ul>
+								<p><strong><em>Note: With the intent of preserving the victims' identities, I already deleted the victims' personal information 
+								after processing the data. For this reason, the following analysis shows only data processing with the dataset left after the 
+								anonymization of the victims.</em></strong></p>
+
+								<hr class="major" />
+
+								<h2>Understanding the Dataset</h2>
+								<p>Understanding the data is a fundamental step in any data science project. This process will show us the variables available in 
+								the dataset and how these variables are structured. This step helps us understand the type of problem and how we will solve it.</p>
+
+								<h3>Variables' Dictionary</h3>
+								<ul>
+									<li><code>date</code> - the date that the murder occurred.</li>
+									<li><code>time</code> - the time that the murder occurred.</li>
+									<li><code>period</code> - the period of the day that the murder occurred.</li>
+									<li><code>city</code> - the city where the murder occurred.</li>
+									<li><code>region</code> - the administrative region that the city belongs to.</li>
+									<li><code>police_station</code> - the police station that registered the murder.</li>
+									<li><code>gender</code> - victim's gender.</li>
+									<li><code>age</code> - victim's age.</li>
+									<li><code>ethnicity</code> - victim's ethnicity (classification used by <a href="https://educa.ibge.gov.br/jovens/conheca-o-brasil/populacao/18319-cor-ou-raca.html" target="_blank">IBGE</a>).</li>
+								</ul>
+								<p>We can now check the first five entries of the dataset to better understand the data.</p>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/0_first_entries_dataset.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+
+								<h3>Dataset Size and Types of Variables</h3>
+								<p>Below, you can see the size of the dataset and the types of its variables.</p>
+								<pre><code>
+# checking dataset's size and number of variables
+
+print(f'Number of Entries:\t {df_raw.shape[0]}')
+print(f'Number of Variables:\t {df_raw.shape[1]}')
+
+# types of variables
+
+df_raw.dtypes
+
+
+	Number of Entries:	 11793
+	Number of Variables:	 9
+
+
+	date              object
+	time              object
+	period            object
+	city              object
+	region            object
+	police_station    object
+	gender            object
+	age                int64
+	ethnicity         object
+
+	dtype: object
+								</code></pre>
+								<p>It can be observed that the <code>date</code> and <code>time</code> variables are <code>object</code>. As these variables represent 
+								time, these variables passed for a process of merging and then transformed into <code>datetime64[ns]</code>.</p>
+								<pre><code>
+# changing type of date and time variables
+
+df_raw.date = df_raw.date.map(str) + " " + df_raw.time
+df_raw = df_raw.drop('time', axis = 1)
+df_raw.date = pd.to_datetime(df_raw.date)
+df_raw.dtypes
+
+	date              datetime64[ns]
+	period                    object
+	city                      object
+	region                    object
+	police_station            object
+	gender                    object
+	age                        int64
+	ethnicity                 object
+	dtype: object
+								</code></pre>
+
+								<h3>Cleaning the Dataset</h3>
+								<p>Looking at the Variables’ Dictionary and the types of variables presented in the dataset, it is possible to see a variable not 
+								relevant for the analysis, which is <code>police_station</code>. For a cleaner and more objective analysis, I deleted this variable.</p>
+								<pre><code>
+# deleting column police_station
+
+df_raw.drop('police_station', axis = 1, inplace = True)
+								</code></pre>
+
+								<h3>Missing Values</h3>
+								<p>The quality of a dataset is directly related to the number of missing values. It is important to understand early on whether these 
+								null values are significant concerning the total number of entries to avoid future problems in our analysis.</p>
+								<pre><code>
+# deleting column police_station
+
+# checking missing values
+
+((df_raw.isnull()).sum() / df_raw.shape[0]).sort_values(ascending = False)
+
+	date         0.0
+	period       0.0
+	city         0.0
+	region       0.0
+	gender       0.0
+	age          0.0
+	ethnicity    0.0
+	dtype: float64
+								</code></pre>
+
+								<h3>Feature Engineering</h3>
+								<p>In this project, I will create variables derived from existing variables to assist future analyses. The variables will be the following:</p>
+								<ul>
+									<li><code>year</code> - the year that the murder occurred.</li>
+									<li><code>month</code> - the month that the murder occurred.</li>
+									<li><code>day</code> - the day that the murder occurred.</li>
+									<li><code>hour</code> - the hour that the murder occurred.</li>
+									<li><code>day_of_week</code> - the day of the week that the murder occurred.</li>
+									<li><code>weekend</code> if the day of the week is a weekend (Saturday or Sunday), the value is equal to 1. If it is not, the value 
+									is equal to 0.</li>
+									<li><code>age_group</code> - the age group that the victim belongs to.</li>
+								</ul>
+								<p>After this process, the data frame is ready for analysis.</p>
+								<pre><code>
+# feature engineering for year, month, day, hour, day_of_week and weekend variables
+
+df_raw['year'] = df_raw.date.dt.year
+df_raw['month'] = df_raw.date.dt.month
+df_raw['day'] = df_raw.date.dt.day
+df_raw['hour'] = df_raw.date.dt.hour
+df_raw['day_of_week'] = df_raw.date.dt.day_name()
+df_raw['weekend'] = 0
+df_raw.loc[(df_raw.day_of_week == "Saturday") | (df_raw.day_of_week == "Sunday"), 'weekend'] = 1
+
+# feature engineering for age_group variable
+
+bins = [0, 10, 20, 30, 40, 50, 60, 70, 120]
+labels = ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70+']
+df_raw['age_group'] = pd.cut(df_raw.age, bins, labels = labels, include_lowest = True, right = False)
+df_raw['age_group'] = df_raw['age_group'].cat.add_categories('unknown').fillna('unknown')
+df_raw.sample()	
+								</code></pre>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/1_sample.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+
+								<hr class="major" />
+																
+								<h2>Data Analysis</h2>
+								<p>The data analysis will address territorial, social and temporal aspects:</p>
+								<ul>
+									<li><strong>Territorial</strong></li>
+									<ul>
+										<li>State of São Paulo</li>
+										<ol type="a">
+											<li>What is the total number of victims of murder in São Paulo state during 2018, 2019, and 2020?</li>
+											<li>What is the total change of victims of murder between the years analyzed?</li>
+										</ol>
+										<li>Administrative Regions</li>
+										<ol type="a">
+											<li>What is the distribution of the number of victims of murder among the different regions of São Paulo state?</li>
+											<li>What is the total change of victims of murder among the regions of São Paulo state between the years analyzed?</li>
+										</ol>
+									</ul>
+									<li><strong>Social</strong></li>
+									<ul>
+										<li>Gender</li>
+										<ol type="a">
+											<li>What is the leading gender of the victims?</li>
+											<li>What is the percentual difference in the victims of murder between the years by gender?</li>
+										</ol>
+										<li>Ethnicity</li>
+										<ol type="a">
+											<li>What is the leading ethnic group of the victims?</li>
+											<li>What is the percentual difference in the victims of murder between the years by ethnic group?</li>
+										</ol>
+										<li>Age Group</li>
+										<ol type="a">
+											<li>What is the leading age group of the victims?</li>
+											<li>What is the percentual difference in the victims of murder between the years by age group?</li>
+										</ol>
+										<li>Victims' Profile</li>
+										<ol type="a">
+											<li>What are the main profiles of male and female victims?</li>
+										</ol>
+									</ul>
+									<li><strong>Temporal</strong></li>
+									<ul>
+										<li>What is the month with the most victims of murder?</li>
+										<li>What is the day with the most victims of murder?</li>
+										<li>Which period of the day has more victims of murder?</li>
+										<li>What is the hour of the day with the most victims of muder? Are there differences between the hours on weekdays and weekends?</li>
+									</ul>						
+								</ul>
+
+								<hr class="major" />
+
+								<h2>Territorial Analysis</h2>
+								
+								<p><span class="image left"><img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/2_cities.png" alt="" /></span>
+								The state of São Paulo has a total size of 248,209 km², and if we compare the size of the state of São Paulo with a country, it would be 
+								slightly larger than the United Kingdom, which has 242,495 km². According to <a href="http://www.imp.seade.gov.br/frontend/#/tabelas" target="_blank">SEADE</a>, 
+								in 2020, São Paulo state had 44.63 million inhabitants in 645 municipalities.</p>
+								<p>The data show that 505 cities registered victims of murder in the state during the analyzed period, and only 140 cities did not register 
+								any victim of murder in this period.</p>
+
+								<h3>State of São Paulo</h3>
+								<p><span class="image left"><img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/3_total_victims.png" alt="" /></span>
+								As seen above, in São Paulo, 505 cities registered victims of murder in the analyzed period. When we check the number of victims, we get a 
+								total of 11,793 victims of murder.</p>
+								<p>An analysis year by year shows that the numbers have been falling over the last three years, with a drop of 3.65% in 2019 and a drop of 
+								4.03% in 2020, resulting in a decrease of 7.52% of the number of victims of murder.</p>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/4_change.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+
+								<h3>Administrative Regions of São Paulo</h3>
+								<p>Above, I carried out an analysis of the numbers throughout the whole state of São Paulo. However, according to police reports of the 
+								Secretary of Public Security of the State of São Paulo, the São Paulo state is divided into 12 regions.</p>
+								<pre><code>
+# regions of são paulo state
+
+df.region.sort_values(ascending = True).unique()
+
+	array(['Araçatuba', 'Bauru', 'Campinas', 'Capital', 'Grande São Paulo ',
+		'Piracicaba', 'Presidente Prudente', 'Ribeirão Preto', 'Santos',
+		'Sorocaba', 'São José do Rio Preto', 'São José dos Campos'],
+		dtype=object)
+								</code></pre>
+								<p>Now that we know all the administrative regions in São Paulo state, it is possible to see a big difference in these regions' total number 
+								of victims. This difference occurs because some regions are much more populous than others.</p>
+								<p><span class="image left"><img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/5_regions.png" alt="" /></span>
+								The image on the left side shows the difference between the Capital region's total numbers and the Presidente Prudente region. However, the 
+								Capital region has approximately 12 million inhabitants, whereas the Presidente Prudente region has around 860 thousand inhabitants.</p>
+								<p>For this reason, in the analysis by region, an analysis of the percentage value will show us much more relevant information than an 
+								analysis of the total values by region.</p>
+								<p>In the percentage results, we noticed three regions (Piracicaba, Bauru, and Araçatuba) where the number of victims of murder has increased 
+								in recent years. In contrast, in the other regions, the number of victims has fallen. The regions with the most significant declines are 
+								Presidente Prudente, São José do Rio Preto and Santos.</p>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/6_regions_change.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+								
+								<hr class="major" />
+
+								<h2>Social Analysis</h2>
+								<p>Before carrying out an analysis based on social aspects, it is essential to understand how the São Paulo state population is composed. 
+								Usually, in Brazil, a census is carried out every ten years, and the last census was carried out only in 2010 due to the COVID-19 pandemic. 
+								Thus, the numbers referring to population gender, ethnicity, and age grouping are unofficial projections.</p>
+
+								<h3>Gender</h3>
+								<p><span class="image left"><img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/7_gender.png" alt="" /></span>
+								According to SEADE, in 2020, São Paulo's population was 44,639,899 inhabitants, 48.67% men and 51.33% women.</p>
+								<p>We can see that 10,388 victims of murder are male during the period analyzed, and 1,405 victims are female in São Paulo state.</p>
+								<p>Through the total numbers of victims by gender, it is possible to see that even though the percentage of the female population in 
+								São Paulo is higher than the male population, there is a big difference in the number of victims of murder in the state, with 88% of male 
+								victims and 11% of female victims.</p>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/8_gender_percentage.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+								<p><span class="image left"><img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/9_gender_change.png" alt="" /></span>
+								However, to understand better the evolution in the number of victims per gender, I analyzed the number of victims per year. The analysis 
+								showed that the number of victims from both genders has been falling year after year. At the end of the period, the number of female 
+								victims showed a significant drop of 15.98% against a drop of 6.92% of male victims.</p><br><br><br><br><br>
+
+								<h3>Ethnicity</h3>
+								<p>Brazil is a multiracial country, and in its census, the population is divided into five ethnic groups: Asian, Black, Indigenous, 
+								Parda (Multiracial), and White.</p>
+								<p>According to SEADE, in 2010, the population of the state of São Paulo was divided as follows:</p>
+								<div class="row">
+									<div class="col-6 col-12-small">
+										<div class="table-wrapper">
+											<table>
+												<thead>
+													<tr>
+														<th>Ethnicity</th>
+														<th>%</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Asian</td>
+														<td>1.35%</td>
+													</tr>
+													<tr>
+														<td>Black</td>
+														<td>5.53%</td>
+													</tr>
+													<tr>
+														<td>Indigenous</td>
+														<td>0.1%</td>
+													</tr>
+													<tr>
+														<td>Parda (multiracial)</td>
+														<td>29.11%</td>
+													</tr>
+													<tr>
+														<td>White</td>
+														<td>63.91%</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="col-6 col-12-small">
+									</div>
+								</div>
+								<p><strong><em>Note: some victims of murder did not have their ethnic group disclosed in the police report. For these occurrences, the 
+								police station's system automatically noted for these victims "no information".</em></strong></p>
+								<p><span class="image left"><img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/11_ethnicity.png" alt="" /></span>
+								After analyzing the total number of victims by ethnicity, we see that more than 87% of the cases are composed of parda (multiracial) and
+								white victims, with 5216 victims and 5096 victims, respectively. Right after that, we have 991 black victims, 463 victims without 
+								information on their ethnicity, 23 Asian victims, and four indigenous victims.</p>
+								<p>Analyzing São Paulo's population, we can see that the multiracial population is approximately half of the white population. Considering 
+								the number of victims of murder by ethnicity, it is possible to see the inequality. Multiracial victims represent most victims in São Paulo 
+								state, with 44.23% against 43.21% being white victims and 8.4% of black victims. After a study on the difference between the numbers per year, 
+								I found out that the number of white victims fell by 9.31%, followed by multiracial victims, 8.24%, and black victims, 6.73%.</p>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/12_ethnicity_change.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+								
+								<h3>Age</h3>
+								<p><span class="image left"><img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/13_statistics_summary.png" alt="" /></span>
+								In the police reports, the age of many of the victims was not indicated. In the case of these victims, the age of 200 years was added so that 
+								they were included in the "unknown" age group. When the summary statistics is generated, these victims are not selected.</p>
+								<p>The summary statistics shows that the average age of the victims and the median are respectively 33.77 years and 32 years. 25% of the victims 
+								are below 23 years old, and 75% are below 41 years old. This information already shows that most victims are concentrated in the age group 20-29 
+								and are concentrated up to 30-39, as shown below.</p>
+								<pre><code>
+# regions of são paulo state
+
+# checking the total number of victims by age_group
+
+df_agegroup = df.age_group.value_counts().to_frame().sort_index()
+age_group = df.age_group.unique().sort_values()
+
+for agegroup in age_group:
+    if agegroup != 'unknown':
+        print(f'Total Number of victims in the age group {agegroup}:\t\t{df_agegroup.loc[agegroup][0]}')
+    else:        
+        print(f'Total Number of victims in the age group {agegroup}:\t{df_agegroup.loc[agegroup][0]}')
+        
+Total Number of victims in the age group 0-9:		74
+Total Number of victims in the age group 10-19:		1152
+Total Number of victims in the age group 20-29:		2995
+Total Number of victims in the age group 30-39:		2677
+Total Number of victims in the age group 40-49:		1626
+Total Number of victims in the age group 50-59:		767
+Total Number of victims in the age group 60-69:		325
+Total Number of victims in the age group 70+:		146
+Total Number of victims in the age group unknown:	2031
+								</code></pre>
+								<p><span class="image left"><img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/15_group_change.png" alt="" /></span>
+								After the total results, I conducted a study to verify the differences per year, where all age groups showed a drop in values. However, age groups 
+								10-19 with -34.23%, 0-9 with -25.00%, and 70+ with -20.00% showed the most significant decrease in the number of victims.</p>
+								<br><br><br><br><br><br><br><br><br><br>
+
+								<h3>Victims' Profile</h3>
+								
+								<p>After analyzing the variables <code>gender</code>, <code>ethnicity</code>, <code>age</code>, and <code>age_group</code>, we can trace a profile 
+								of the most frequent victims of murder. The male victims' profile shows that most male victims were multiracial and aged between 20-29 years. 
+								This profile showed a total of 1285 victims in the analyzed period.</p>
+								<p>A female profile, on the other hand, has different characteristics. The female victims' profile shows that majority of female victims were white 
+								and aged 30-39. This profile showed a total of 174 victims in the analyzed period.</p>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/16_victims_profile.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+
+								<hr class="major" />
+
+								<h2>Temporal Analysis</h2>
+								<p>The temporal analysis will seek to obtain simple information on the total number of victims per period. This analysis will answer the following 
+								questions:</p>
+								<ol>
+									<li>What is the month with the most victims of murder?</li>
+									<li>What is the day with the most victims of murder?</li>
+									<li>Which period of the day has more victims of murder?</li>
+									<li>What is the hour of the day with the most victims of murder? Are there differences between the hours on weekdays and weekends?</li>
+								</ol>
+
+								<h3>1 - What is the month with the most victims of murder?</h3>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/17_month.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+
+								<h3>2 - What is the day with the most victims of murder?</h3>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/18_dayofweek.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+
+								<h3>3 - Which period of the day has more victims of murder?</h3>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/19_period.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+
+								<h3>4 - What is the hour of the day with the most victims of murder? Are there differences between the hours on weekdays and weekends?</h3>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/20_hour.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/21_hour_weekdays.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+								<p>And it was possible to see that there is a small difference in time when we analyze the total number of victims during weekdays and weekends.</p>
+								<img src="https://raw.githubusercontent.com/ghermsen/sao_paulo_murder_eda/main/img/22_hour_weekends.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
+
+								<hr class="major" />
+
+								<h2>Conclusion</h2>
+
+								<p>The analysis presented exciting information about the murder data in São Paulo state. Firstly, it was possible to see that the numbers of 
+								murders in São Paulo state have been dropping over the past few years. Some state regions presented a significant decline in the number of 
+								victims, whereas three out of twelve regions demonstrated increases in their numbers.</p>
+								<p>It was also possible to observe the big difference between male and female victims and see how the number of female victims is falling 
+								significantly more than the number of male victims. Through gender and other characteristics, it was possible to identify groups, based on 
+								a simple victims' profile, that can be more likely to be victims than others.</p>
+								<p>At the end of the study, it was possible to conclude that December is the month with the highest number of victims of murder, and Saturday 
+								is the day that most people are murdered. The period that most murders take place is at night, and a slight difference in hours could be 
+								identified in the murders' data when weekdays and weekends are compared.</p>
+								<p>As I previously treated the dataset published in this project to protect the victims' identity, the complete dataset presents more information, 
+								such as the location within a city where the homicide occurred. The next steps for the continuity of this study are:</p>
+								<ul>
+									<li>carrying out new analyses based on this study using the area where these crimes took place with the intent of creating a map of homicides 
+									within a given municipality;</li>
+									<li>comparing these data with social indicators of the cities, such as the HDI and others.</li>
+								</ul>
+								<p>Questions, suggestions for improvement, and corrections are welcome, and thank you for analyzing the data with me so far!</p>
+
+							</section>
+
+							<!-- Contact Footer -->
+							<section w3-include-html="/components/footer.html">
+							</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+				<div id="sidebar">
+					<div class="inner">
+
+						<!-- Menu -->
+						<nav id="menu">
+							<header class="major">
+								<h2>Menu</h2>
+							</header>
+							<ul>
+								<li><a href="/index.html">Home</a></li>
+								<li><a href="/cv.html">CV</a></li>
+								<li><a href="/elements.html">Elements</a></li>
+								<li>
+									<span class="opener">Projects</span>
+										<ul w3-include-html="/components/menu_projects.html"></ul>
+									</span>
+								</li>
+								<!--<li>
+									<span class="opener">Articles</span>
+										<ul w3-include-html="components/menu_posts.html"></ul>
+									</span>
+								</li>-->
+							</ul>
+						</nav>
+
+
+						<!-- Section -->
+						<section>
+							<header class="major">
+								<h2>Last Article</h2>
+							</header>
+							<div class="mini-posts" w3-include-html="/components/last_articles_sidebar.html"></div>
+						</section>
+						
+					</div>
+				</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
+			<script src="/assets/js/w3.js"></script>
+			<script>w3.includeHTML();</script>
+
+	</body>
+</html>
