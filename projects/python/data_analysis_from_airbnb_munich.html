@@ -21,7 +21,7 @@
 						<div class="inner">
 
 							<!-- Header -->
-							<div class="content" w3-include-html="/gabrielhermsen/components/header.html">
+							<div class="content" w3-include-html="/gabrielhermsen/components/header_python.html">
 							</div>
 
 							<section>
@@ -36,7 +36,7 @@
 								</header>
 
 								<p>The IPO (Initial Public Offering, that is, the process in which a private company goes public by selling its shares to
-								the general public) of <a href="www.airbnb.com">Airbnb</a> took place on December 9, 2020, and its shares started trading on 
+								the general public) of <a href="www.airbnb.com" target="_blank">Airbnb</a> took place on December 9, 2020, and its shares started trading on 
 								December 10, 2020. On that day, the company's shares were worth USD144.71, an incredible 112.00% more than the USD68.00 
 								value set by the company in its IPO, making the company reach the mark of USD100 Billion in market value, surpassing giants 
 								from hotel industries like Marriott International, Hilton, and Hyatt.</p>
@@ -45,10 +45,10 @@
 								than 80,000 cities worldwide and has hosted more than 300 million people, and it is considered by many to be the largest hotel 
 								company today, and the main detail is: Airbnb does not have any hotels!</p>
 								<p>One of Airbnb's initiatives is to provide website data for some of the world's major cities. Through the 
-								<a href="http://insideairbnb.com/get-the-data.html">Inside Airbnb</a>, it is possible to download a large amount
+								<a href="http://insideairbnb.com/get-the-data.html" target="_blank">Inside Airbnb</a>, it is possible to download a large amount
 								of data to develop Data Science projects and solutions.</p>
 								<p><strong>In this project, we will analyze the data for the city of Munich and see which insights can be extracted from raw data.</strong></p>
-								<span class="image main" style="text-align: center"><img src="/gabrielhermsen/images/projects/python/data_analysis_from_airbnb_munich/cover.jpg" alt="https://www.sueddeutsche.de/muenchen/airbnb-kommentar-1.4251629" /><em>Image Source: <a href="https://www.sueddeutsche.de/muenchen/airbnb-kommentar-1.4251629">Süddeutsche Zeitung</a></em></span>
+								<span class="image main" style="text-align: center"><img src="/gabrielhermsen/images/projects/python/data_analysis_from_airbnb_munich/cover.jpg" alt="https://www.sueddeutsche.de/muenchen/airbnb-kommentar-1.4251629" /><em>Image Source: <a href="https://www.sueddeutsche.de/muenchen/airbnb-kommentar-1.4251629" target="_blank">Süddeutsche Zeitung</a></em></span>
 
 								<hr class="major" />
 
@@ -66,7 +66,7 @@
 								<hr class="major" />
 
 								<h2>Obtaining the Data</h2>
-								<p>All data used in this project was obtained from the website <a href="http://insideairbnb.com/get-the-data.html">Inside Airbnb</a>.</p>
+								<p>All data used in this project was obtained from the website <a href="http://insideairbnb.com/get-the-data.html" target="_blank">Inside Airbnb</a>.</p>
 								<p>For this data analysis, the following files will be downloaded:</p>
 								<ul>
 									<li>Exploratory Data Analysis</li>									
@@ -157,7 +157,7 @@
 								</ul>
 								<p>For a cleaner and more objective analysis, these variables will be deleted.</p>
 								<p>Below, there is a sample of our dataset after cleaning.</p>
-								<img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/data_sample.png" style="display:block; margin-left: auto; margin-right: auto;">
+								<img src="https://raw.githubusercontent.com/ghermsen/airbnb_munchen/main/img/data_sample.png" style="display:block; margin-left: auto; margin-right: auto;"><br>
 
 								<h3>Missing Values</h3>
 								<p>The quality of a dataset is directly related to the number of missing values. It is important to understand early on whether these 
@@ -374,7 +374,7 @@ array(['Altstadt-Lehel', 'Ludwigsvorstadt-Isarvorstadt', 'None',
 		'Moosach', 'Milbertshofen-Am Hart'], dtype=object)									
 								</code></pre>
 								<p>With the <code>Nominatim</code>, we can create a locator using the name of these tourist spots and get their latitudes and longitudes. 
-								These tourist spots were selected on the <a href="https://www.muenchen.de/sehenswuerdigkeiten/top-20-sehenswuerdigkeiten.html">official website of Munich</a>.</p>
+								These tourist spots were selected on the <a href="https://www.muenchen.de/sehenswuerdigkeiten/top-20-sehenswuerdigkeiten.html" target="_blank">official website of Munich</a>.</p>
 								<p>After generating a dictionary of tourist spots in Munich, we can start plotting our map of Munich, with the chosen neighbourhoods and 
 								tourist spots.</p>
 								<pre><code>
@@ -414,7 +414,7 @@ array(['Altstadt-Lehel', 'Ludwigsvorstadt-Isarvorstadt', 'None',
 								<p>The analysis of the Airbnb in Munich showed us that the property types <em>'Entire room/apt'</em> and <em>'Private room'</em> are well 
 								balanced, probably it is a result of the policies applied regarding the restriction of the period of days for renting entire properties in 
 								the city.</p>
-								<p>For future iterations in this project, I will use the complete dataset available on <a href="http://insideairbnb.com/get-the-data.html">Inside Airbnb</a> 
+								<p>For future iterations in this project, I will use the complete dataset available on <a href="http://insideairbnb.com/get-the-data.html" target="_blank">Inside Airbnb</a> 
 								website. This dataset offers a possibility of analyzing important variables that can explain the price, such as square meter, amenities among 
 								others.</p>
 								<p>Questions, suggestions for improvements, and corrections are welcome, and thank you for analyzing the data with me so far!</p>
@@ -427,43 +427,6 @@ array(['Altstadt-Lehel', 'Ludwigsvorstadt-Isarvorstadt', 'None',
 
 						</div>
 					</div>
-
-				<!-- Sidebar -->
-				<div id="sidebar">
-					<div class="inner">
-
-						<!-- Menu -->
-						<nav id="menu">
-							<header class="major">
-								<h2>Menu</h2>
-							</header>
-							<ul>
-								<li><a href="/gabrielhermsen/index.html">Home</a></li>
-								<li><a href="/gabrielhermsen/cv.html">CV</a></li>
-								<li>
-									<span class="opener">Projects</span>
-										<ul w3-include-html="/gabrielhermsen/components/menu_projects.html"></ul>
-									</span>
-								</li>
-								<!--<li>
-									<span class="opener">Articles</span>
-										<ul w3-include-html="components/menu_posts.html"></ul>
-									</span>
-								</li>-->
-							</ul>
-						</nav>
-
-
-						<!-- Section -->
-						<section>
-							<header class="major">
-								<h2>Last Article</h2>
-							</header>
-							<div class="mini-posts" w3-include-html="/gabrielhermsen/components/last_articles_sidebar.html"></div>
-						</section>
-						
-					</div>
-				</div>
 			</div>
 
 		<!-- Scripts -->
