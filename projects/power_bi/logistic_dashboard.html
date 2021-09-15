@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Gabriel Hermsen Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/gabrielhermsen/assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+							<div class="content" w3-include-html="/gabrielhermsen/components/header_power_bi.html">
+							</div>
+
+							<section>
+
+								<span><a href="https://www.linkedin.com/in/gabrielhermsen/" target="_blank"><img src="https://img.shields.io/badge/author-ghermsen-red.svg"/></a></span>
+								<span ><a href="https://docs.microsoft.com/en-us/power-bi/fundamentals/desktop-getting-started" target="_blank"><img src="https://img.shields.io/badge/powerbi-2.96.1061.0-yellow.svg"></a></span>
+								<span ><a href="http://perso.crans.org/besson/LICENSE.html" target="_blank"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg"></a></span>
+								<span ><a href="https://github.com/ghermsen/airbnb_munchen/issues" target="_blank"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a></span>
+
+								<header class="main">
+									<h1>Logistic Dashboard with Power BI</h1>
+								</header>
+
+								<ul class="actions">
+									<li><a href="https://github.com/ghermsen/logistic_dashboard" target="_blank" class="button icon solid fa-code">Project's Files </a></li>
+								</ul>
+
+                                <p align="center"><a name="dashboard"><iframe width="1024" height="612" src="https://app.powerbi.com/view?r=eyJrIjoiZDA1NDFiNWMtZTllYS00NmZhLTg4NjUtYzc1MTAwODkzNzlhIiwidCI6IjMxNjM0ZjkzLTczMDUtNGNlNy04N2IxLTE5NjU5YWM2N2NjMSJ9" frameborder="0" allowFullScreen="true"></iframe></a></p>
+
+								<p>Esse Dashboard foi criado com algumas KPIs para analisar a performance de uma empresa do ramo de logística. A primeira página
+                                do Dashboard apresenta uma análise da performance da empresa, onde a análise se da pelas KPIs <strong>Revenue, Total Cost,
+                                Gross Income, Gross Income Margin</strong> and <strong>Average Ticket</strong>. Na segunda página do Dashboard foi realizada uma
+                                análise das entregas. Para isso, KPIs como <strong>OTIF, On Time, In Full</strong> and <strong>Orcer Cycle Time</strong>
+                                foram análisadas.</p>
+                                <p>Abaixo há uma lista de todas as medidas criadas usando DAX para que possam ser replicadas seus projetos futuros.</p>                                    
+
+								<hr class="major" />
+
+								<h2><a name="list_of_measures">List of Measures</a></h2>
+
+                                <ul>
+                                    <li><a href="#1_cover_page">1 - Cover Page</a></li>
+                                    <ul>
+                                        <li><a href="#1.1_number_of_trucks">1.1 - Number of Trucks</a></li>
+                                        <li><a href="#1.2_number_of_countries">1.2 - Number of Countries</a></li>
+                                        <li><a href="#1.3_number_of_cities">1.3 - Number of Cities</a></li>
+                                    </ul>
+                                    <li><a href="#2_performance_page">2 - Performance Page</a></li>
+                                    <ul>
+                                        <li><a href="#2.1_revenue">2.1 - Revenue</a></li>
+                                        <li><a href="#2.2_total_cost">2.2 - Total Cost</a></li>
+                                        <li><a href="#2.3_gross_profit">2.3 - Gross Profit</a></li>
+                                        <li><a href="#2.4_gross_profit_margin">2.4 - Gross Profit Margin</a></li>
+                                        <li><a href="#2.5_gross_profit_margin_last_year">2.5 - Gross Profit Margin Last Year</a></li>
+                                        <li><a href="#2.6_number_of_orders">2.6 - Number of Orders</a></li>
+                                        <li><a href="#2.7_average_ticket">2.7 - Average Ticket</a></li>
+                                    </ul>
+									<li><a href="#3_shipment_page">3 - Shipment Page</a></li>
+                                    <ul>
+                                        <li><a href="#3.1_on_time">3.1 - On Time</a></li>
+                                        <li><a href="#3.2_in_full">3.2 - In Full</a></li>
+                                        <li><a href="#3.3_otif">3.3 - OTIF</a></li>
+                                        <li><a href="#3.4_order_cycle_time">3.4 - Order Cycle Time (OCT)</a></li>
+                                    </ul>
+								</ul>
+
+                                <h3 id="title"><a name="1_cover_page">1 - Cover Page</a></h3>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <img width="80%" src="https://raw.githubusercontent.com/ghermsen/logistic_dashboard/main/img/page1.PNG">
+                                <br><br>
+
+                                <h4 id="title"><a name="1.1_number_of_trucks">1.1 - Number of Trucks</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>This measure is used to return the total number of trucks that the company owns.</p>
+                                <pre><code>
+Nr Trucks = DISTINCTCOUNT(dAuto[ID_Auto])
+                                </code></pre>
+
+                                <h4 id="title"><a name="1.2_number_of_countries">1.2 - Number of Countries</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>This measure is used to return the number of countries that the company delivers.</p>
+                                <pre><code>
+Nr Countries = DISTINCTCOUNT(dDestination[Country])
+                                </code></pre>
+
+                                <h4 id="title"><a name="1.3_number_of_cities">1.3 - Number of Cities</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>This measure is used to return the number of cities that the company delivers.</p>
+                                <pre><code>
+Nr Cities = DISTINCTCOUNT(dDestination[City])
+                                </code></pre>
+
+                                <hr class="major" />
+
+                                <h3 id="title"><a name="2_performance_page">2 - Performance Page</a></h3>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <img width="80%" src="https://raw.githubusercontent.com/ghermsen/logistic_dashboard/main/img/page2.PNG">
+                                <br><br>
+
+                                <h4 id="title"><a name="2.1_revenue">2.1 - Revenue</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>The company's revenue is all the money received from its activities. It means that the revenue is everything that the company 
+                                earns from the sale of services, products, financial investments, etc., in this project, the sum of everything in the shipping 
+                                cost column.</p>
+                                <pre><code>
+Revenue = SUM(fRequest[Shipping Cost])
+                                </code></pre>
+
+                                <h4 id="title"><a name="2.2_total_cost">2.2 - Total Cost</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>Total Cost is the sum of all fixed or variable costs that a company has, in this project, the sum of everything in the total 
+                                cost column.</p>
+                                <pre><code>
+Total Cost = SUM(fCost[TotalCost])
+                                </code></pre>
+
+                                <h4 id="title"><a name="2.3_gross_profit">2.3 - Gross Profit</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>A company’s gross profit, is the revenue from all sources minus the firm’s cost of goods sold (represented by the measure Total Cost).</p>
+                                <pre><code>
+Gross Profit = [Revenue] - [Total Cost]
+                                </code></pre>
+
+                                <h4 id="title"><a name="2.4_gross_profit_margin">2.4 - Gross Profit Margin</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>Gross profit margin is a percentage value obtained from the gross profit and total revenue (the formula is: gross profit 
+                                margin = gross profit / revenue).</p>
+                                <pre><code>
+Gross Profit Margin = DIVIDE([Gross Profit], [Revenue])
+                                </code></pre>
+
+                                <h4 id="title"><a name="2.5_gross_profit_margin_last_year">2.5 - Gross Profit Margin Last Year</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>This measure is used to compare with the actual gross profit margin and then sees the evolution over time.</p>
+                                <pre><code>
+Gross Profit Margin LY = 
+CALCULATE(
+    [Gross Profit Margin],
+    SAMEPERIODLASTYEAR(dCalendar[Date])
+)
+                                </code></pre>
+
+                                <h4 id="title"><a name="2.6_number_of_orders">2.6 - Number of Orders</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>This measure returns the total number of orders that the company obtained in the period.</p>
+                                <pre><code>
+Nr Orders = DISTINCTCOUNT(fRequest[Nrequest])
+                                </code></pre>
+
+                                <h4 id="title"><a name="2.7_average_ticket">2.7 - Average Ticket</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>The average ticket represents the average amount spent on orders: the higher the amount, the more customers spend on orders.</p>
+                                <pre><code>
+Average Ticket = DIVIDE([Revenue], [Nr Orders])
+                                </code></pre>
+
+                                <hr class="major" />
+
+                                <h3 id="title"><a name="3_shipment_page">3 - Shipment Page</a></h3>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <img width="80%" src="https://raw.githubusercontent.com/ghermsen/logistic_dashboard/main/img/page3.PNG">
+                                <br><br>
+
+                                <h4 id="title"><a name="3.1_on_time">3.1 - On-Time</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>The on-time delivery metric is used to assess their ability to fulfill a customer order by the promised delivery date.</p>
+                                <p>First is calculated its absolute value:</p>
+                                <pre><code>
+# OnTime = 
+CALCULATE(
+    [Nr Orders],
+    fRequest[OnTime] = "On Time"
+)
+                                </code></pre>
+
+                                <p>Then, its percentage:</p>
+                                <pre><code>
+% OnTime = DIVIDE([# OnTime], [Nr Orders])
+                                </code></pre>
+
+                                <h4 id="title"><a name="3.2_in_full">3.2 - In-Full</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>The in full returns all the orders that the customer gets strictly the amount they have ordered. In this project, it returns 
+                                the orders that had no incidents.</p>
+                                <pre><code>
+% In Full = 
+DIVIDE(
+    CALCULATE(
+        [Nr Orders],
+        fRequest[Incidence] = 0),
+    [Nr Orders]
+)  
+                                </code></pre>
+
+                                <h4 id="title"><a name="3.3_otif">3.3 - OTIF</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>The OTIF verifies that orders were delivered on time, without returns, and investigates whether the product has arrived within 
+                                the specifications provided to customers at the time of purchase.</p>
+                                <pre><code>
+% OTIF = [% OnTime] * [% In Full]
+                                </code></pre>
+
+                                <h4 id="title"><a name="3.4_order_cycle_time">3.4 - Order Cycle Time (OCT)</a></h4>
+                                <div class="subtitle">
+									<a href="#dashboard">(back to dashboard)</a> |
+									<a href="#list_of_measures">(list of measures)</a>
+								</div>
+
+                                <p>The order cycle time (OCT) measures the average time required to fulfill customer orders</p>
+                                <pre><code>
+OCT = 
+AVERAGEX(
+    fRequest, 
+    DATEDIFF(
+        fRequest[RequestDate],
+        fRequest[DeliveryDate],
+        DAY)
+)
+                                </code></pre>
+								
+								<p>Questions, suggestions for improvements, and corrections are welcome, and thank you for analyzing the data with me so far!</p>
+
+							</section>
+
+							<!-- Contact Footer -->
+							<section w3-include-html="/gabrielhermsen/components/footer.html">
+							</section>
+
+						</div>
+					</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="/gabrielhermsen/assets/js/jquery.min.js"></script>
+			<script src="/gabrielhermsen/assets/js/browser.min.js"></script>
+			<script src="/gabrielhermsen/assets/js/breakpoints.min.js"></script>
+			<script src="/gabrielhermsen/assets/js/util.js"></script>
+			<script src="/gabrielhermsen/assets/js/main.js"></script>
+			<script src="/gabrielhermsen/assets/js/w3.js"></script>
+			<script>w3.includeHTML();</script>
+
+	</body>
+</html>
